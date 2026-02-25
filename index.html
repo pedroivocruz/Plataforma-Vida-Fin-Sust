@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: Índice Vida Financeira Sustentável (IVFS)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Palette: Vibrant & Energetic -->
+    <!-- Primary: Indigo (#4F46E5), Secondary: Fuchsia (#D946EF), Accent: Cyan (#06B6D4) -->
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+
+        /* Chart Container Styling - MANDATORY */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- HEADER SECTION -->
+    <header class="bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white py-12 px-4 shadow-lg">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Índice Vida Financeira Sustentável</h1>
+            <p class="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto">
+                Entenda sua pontuação, descubra seu perfil e trace o caminho para a liberdade financeira.
+            </p>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 py-10 space-y-16">
+
+        <!-- INTRO -->
+        <section class="text-center max-w-3xl mx-auto">
+            <p class="text-slate-600 text-lg leading-relaxed">
+                O <strong>IVFS</strong> não é apenas um número; é um mapa da sua saúde econômica. 
+                Ele avalia quatro pilares fundamentais da sua vida para gerar um diagnóstico preciso de 0 a 100 pontos.
+                Veja abaixo como sua nota é composta.
+            </p>
+        </section>
+
+        <!-- SECTION 1: A MATEMÁTICA (COMPOSITION) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white rounded-2xl card-shadow p-8">
+            <div>
+                <h2 class="text-3xl font-bold text-indigo-700 mb-4 border-b-4 border-cyan-400 inline-block">Como é calculado?</h2>
+                <p class="text-gray-600 mb-6">
+                    A metodologia atribui pesos diferentes para cada pilar. Note que a <strong>Organização</strong> e a <strong>Mentalidade</strong>
+                    juntas representam 60% da sua nota, provando que o comportamento é tão importante quanto o dinheiro no banco.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center text-gray-700">
+                        <span class="w-4 h-4 rounded-full bg-indigo-500 mr-3"></span>
+                        <strong>Organização (30 pts):</strong> Clareza sobre ganhos e gastos.
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <span class="w-4 h-4 rounded-full bg-fuchsia-500 mr-3"></span>
+                        <strong>Mentalidade (30 pts):</strong> Controle emocional e autopercepção.
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <span class="w-4 h-4 rounded-full bg-cyan-500 mr-3"></span>
+                        <strong>Reserva (25 pts):</strong> Segurança para imprevistos.
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <span class="w-4 h-4 rounded-full bg-teal-400 mr-3"></span>
+                        <strong>Fluxo de Caixa (15 pts):</strong> Sobra ou falta dinheiro?
+                    </li>
+                </ul>
+                <div class="mt-6 bg-red-50 border-l-4 border-red-500 p-4">
+                    <p class="text-red-700 text-sm font-semibold">⚠️ O Fator Redutor</p>
+                    <p class="text-red-600 text-sm">Possuir dívidas em atraso ou usar cheque especial retira automaticamente <span class="font-bold">20 pontos</span> do seu total.</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-col items-center justify-center">
+                <div class="chart-container">
+                    <canvas id="scoreCompositionChart"></canvas>
+                </div>
+                <p class="text-sm text-gray-400 mt-2 italic">Distribuição dos 100 pontos possíveis</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PERFIS (RANKING/COMPARISON) -->
+        <section>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Os 4 Perfis Financeiros</h2>
+                <p class="text-gray-500">Onde você se encaixa hoje e qual o próximo nível?</p>
+            </div>
+
+            <!-- Profile Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Critical -->
+                <div class="bg-white rounded-xl shadow-lg border-t-8 border-red-500 p-6 hover:scale-105 transition-transform duration-300">
+                    <div class="text-red-500 text-4xl mb-4 text-center">🔴</div>
+                    <h3 class="text-xl font-bold text-gray-800 text-center mb-1">Crítico</h3>
+                    <p class="text-center text-red-600 font-bold mb-4">0 - 30 pontos</p>
+                    <p class="text-sm text-gray-600 mb-4">Modo sobrevivência. Dívidas em atraso e ansiedade alta.</p>
+                    <hr class="border-gray-100 my-3">
+                    <p class="text-xs font-semibold text-gray-500 uppercase">Ação Imediata:</p>
+                    <p class="text-sm text-gray-700">Estancar sangramento. Renegociar dívidas e cortar gastos.</p>
+                </div>
+
+                <!-- Instável -->
+                <div class="bg-white rounded-xl shadow-lg border-t-8 border-orange-500 p-6 hover:scale-105 transition-transform duration-300">
+                    <div class="text-orange-500 text-4xl mb-4 text-center">🟠</div>
+                    <h3 class="text-xl font-bold text-gray-800 text-center mb-1">Instável</h3>
+                    <p class="text-center text-orange-600 font-bold mb-4">31 - 60 pontos</p>
+                    <p class="text-sm text-gray-600 mb-4">Vive no "zero a zero". Um imprevisto gera o caos.</p>
+                    <hr class="border-gray-100 my-3">
+                    <p class="text-xs font-semibold text-gray-500 uppercase">Ação Imediata:</p>
+                    <p class="text-sm text-gray-700">Criar o "Mês de Segurança" e analisar para onde o dinheiro foge.</p>
+                </div>
+
+                <!-- Em Ajuste -->
+                <div class="bg-white rounded-xl shadow-lg border-t-8 border-yellow-400 p-6 hover:scale-105 transition-transform duration-300">
+                    <div class="text-yellow-400 text-4xl mb-4 text-center">🟡</div>
+                    <h3 class="text-xl font-bold text-gray-800 text-center mb-1">Em Ajuste</h3>
+                    <p class="text-center text-yellow-600 font-bold mb-4">61 - 85 pontos</p>
+                    <p class="text-sm text-gray-600 mb-4">O básico está feito, mas falta estratégia para crescer.</p>
+                    <hr class="border-gray-100 my-3">
+                    <p class="text-xs font-semibold text-gray-500 uppercase">Ação Imediata:</p>
+                    <p class="text-sm text-gray-700">Blindar reserva (6 meses) e estudar Renda Fixa.</p>
+                </div>
+
+                <!-- Estruturado -->
+                <div class="bg-white rounded-xl shadow-lg border-t-8 border-green-500 p-6 hover:scale-105 transition-transform duration-300">
+                    <div class="text-green-500 text-4xl mb-4 text-center">🟢</div>
+                    <h3 class="text-xl font-bold text-gray-800 text-center mb-1">Estruturado</h3>
+                    <p class="text-center text-green-600 font-bold mb-4">86 - 100 pontos</p>
+                    <p class="text-sm text-gray-600 mb-4">Total controle, reserva sólida e foco em patrimônio.</p>
+                    <hr class="border-gray-100 my-3">
+                    <p class="text-xs font-semibold text-gray-500 uppercase">Ação Imediata:</p>
+                    <p class="text-sm text-gray-700">Diversificar investimentos e planejar longo prazo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: GAP ANALYSIS (RADAR) -->
+        <section class="bg-indigo-50 rounded-3xl p-8 md:p-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1 flex flex-col items-center">
+                    <div class="chart-container">
+                        <canvas id="radarGapChart"></canvas>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-4">A Diferença de Comportamento</h2>
+                    <p class="text-indigo-700 mb-6">
+                        O gráfico ao lado compara um perfil <strong>Crítico</strong> (área vermelha) com um perfil <strong>Estruturado</strong> (área verde).
+                        Observe como a "Mentalidade" e a "Organização" são as alavancas que puxam todo o resto para cima.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-white p-2 rounded shadow text-2xl mr-4">📉</div>
+                            <div>
+                                <h4 class="font-bold text-indigo-900">O Ciclo da Escassez</h4>
+                                <p class="text-sm text-indigo-600">Baixa organização gera ansiedade (mentalidade), que leva a compras por impulso, destruindo a reserva.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-white p-2 rounded shadow text-2xl mr-4">📈</div>
+                            <div>
+                                <h4 class="font-bold text-indigo-900">O Ciclo da Prosperidade</h4>
+                                <p class="text-sm text-indigo-600">Alta organização traz paz mental, permitindo decisões racionais que constroem reservas sólidas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: A SOLUÇÃO (PIE/PROCESS) -->
+        <section class="bg-white rounded-2xl card-shadow p-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800">Como sair do caos?</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto mt-2">
+                    Independentemente do seu perfil atual, o caminho para a sustentabilidade passa pelo método universal <strong>50-30-20</strong>.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-fuchsia-600 mb-4">1. A Regra de Ouro</h3>
+                    <p class="text-gray-600 mb-6">
+                        Para organizar o orçamento, o ideal é dividir sua renda líquida em três baldes. 
+                        Se seus gastos fixos hoje ultrapassam 50%, seu estilo de vida está acima da sua renda.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-500">
+                            <h4 class="font-bold text-indigo-700">50% - Necessidades</h4>
+                            <p class="text-sm text-indigo-600">Moradia, contas, mercado, transporte. O essencial para viver.</p>
+                        </div>
+                        <div class="p-4 bg-fuchsia-50 rounded-lg border-l-4 border-fuchsia-500">
+                            <h4 class="font-bold text-fuchsia-700">30% - Desejos</h4>
+                            <p class="text-sm text-fuchsia-600">Lazer, assinaturas, compras, jantar fora. O que faz a vida divertida.</p>
+                        </div>
+                        <div class="p-4 bg-cyan-50 rounded-lg border-l-4 border-cyan-500">
+                            <h4 class="font-bold text-cyan-700">20% - Futuro</h4>
+                            <p class="text-sm text-cyan-600">Pagar dívidas (se houver) ou investir para a Reserva e Aposentadoria.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <div class="chart-container">
+                        <canvas id="budgetRuleChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: RITO FINANCEIRO (LIST) -->
+        <section class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">2. Estabeleça seu Rito Financeiro</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="bg-white p-6 rounded-xl shadow border border-gray-100">
+                    <div class="text-4xl mb-4">🗓️</div>
+                    <h3 class="font-bold text-lg mb-2">Dia Fixo</h3>
+                    <p class="text-sm text-gray-600">Escolha um dia (ex: Domingo à noite) para ser seu momento com o dinheiro.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border border-gray-100">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h3 class="font-bold text-lg mb-2">Consciência</h3>
+                    <p class="text-sm text-gray-600">Abra o extrato e categorine os gastos da semana. Sem julgamento, apenas dados.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border border-gray-100">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="font-bold text-lg mb-2">Ajuste</h3>
+                    <p class="text-sm text-gray-600">Planeje a próxima semana. Se gastou muito em lazer, segure a onda nos próximos dias.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-10 mt-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold mb-4">Pronto para mudar sua realidade?</h3>
+            <p class="text-gray-400 mb-8">
+                A organização financeira não é sobre cortar cafezinho, é sobre assumir o controle da sua vida.
+            </p>
+            <div class="text-sm text-gray-600">
+                &copy; 2024 Projeto Finanças Sustentáveis. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- CHART JS IMPLEMENTATION -->
+    <script>
+        // --- UTILITY: LABEL WRAPPING FOR CHART.JS (MANDATORY) ---
+        function wrapLabel(label) {
+            if (label.length <= 16) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length <= 16) {
+                    currentLine += " " + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- GLOBAL TOOLTIP CONFIG (MANDATORY) ---
+        Chart.defaults.plugins.tooltip.callbacks.title = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+        
+        // Font settings
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#475569';
+
+        // --- CHART 1: SCORE COMPOSITION (DOUGHNUT) ---
+        const ctxComposition = document.getElementById('scoreCompositionChart').getContext('2d');
+        const rawLabelsComp = ["Organização", "Mentalidade", "Reserva de Emergência", "Fluxo de Caixa"];
+        const wrappedLabelsComp = rawLabelsComp.map(wrapLabel);
+
+        new Chart(ctxComposition, {
+            type: 'doughnut',
+            data: {
+                labels: wrappedLabelsComp,
+                datasets: [{
+                    data: [30, 30, 25, 15], // IVFS Weights
+                    backgroundColor: [
+                        '#4F46E5', // Indigo (Org)
+                        '#D946EF', // Fuchsia (Mental)
+                        '#06B6D4', // Cyan (Reserva)
+                        '#14B8A6'  // Teal (Fluxo)
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.raw} pontos`;
+                            }
+                        }
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+
+        // --- CHART 2: RADAR GAP ANALYSIS ---
+        const ctxRadar = document.getElementById('radarGapChart').getContext('2d');
+        // Labels are already short, but good practice to map wrapLabel
+        const rawLabelsRadar = ["Organização", "Mentalidade", "Reserva", "Fluxo"];
+        const wrappedLabelsRadar = rawLabelsRadar.map(wrapLabel);
+
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: wrappedLabelsRadar,
+                datasets: [
+                    {
+                        label: 'Perfil Estruturado',
+                        data: [30, 30, 25, 15], // Max scores
+                        fill: true,
+                        backgroundColor: 'rgba(34, 197, 94, 0.2)', // Green transparent
+                        borderColor: '#22C55E',
+                        pointBackgroundColor: '#22C55E',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#22C55E'
+                    },
+                    {
+                        label: 'Perfil Crítico',
+                        data: [5, 5, 0, 0], // Low scores simulation
+                        fill: true,
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)', // Red transparent
+                        borderColor: '#EF4444',
+                        pointBackgroundColor: '#EF4444',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#EF4444'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: '#E2E8F0'
+                        },
+                        grid: {
+                            color: '#E2E8F0'
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            },
+                            color: '#475569'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 30
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: 50-30-20 RULE (PIE) ---
+        const ctxBudget = document.getElementById('budgetRuleChart').getContext('2d');
+        const rawLabelsBudget = ["Necessidades (50%)", "Desejos (30%)", "Futuro (20%)"];
+        const wrappedLabelsBudget = rawLabelsBudget.map(wrapLabel);
+
+        new Chart(ctxBudget, {
+            type: 'pie',
+            data: {
+                labels: wrappedLabelsBudget,
+                datasets: [{
+                    data: [50, 30, 20],
+                    backgroundColor: [
+                        '#4F46E5', // Indigo
+                        '#D946EF', // Fuchsia
+                        '#06B6D4'  // Cyan
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
